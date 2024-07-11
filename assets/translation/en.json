@@ -1,0 +1,22 @@
+{
+    "islami" : "Islami",
+    "sura_names": "Sura Names",
+    "quran": "Quran",
+    "tasbeh":"Tasbeh",
+    "number_of_praises" : "Number of praises",
+    "radio":"Radio",
+    "quran_radio":"Quran Radio",
+    "hadiths":"Hadiths",
+    "hadith_number":"Hadith Number",
+    "settings":"Settings",
+    "language":"Language",
+    "arabic":"Arabic",
+    "english" :"English",
+    "theme":"Theme",
+    "dark_theme":"Dark",
+    "light_theme":"Light"
+
+
+
+
+}

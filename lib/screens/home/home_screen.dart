@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_app/screens/home/tabs/ahadeth_tab.dart';
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.transparent,
               centerTitle: true,
               title: Text(
-                "Islami",
+                "islami".tr(),
                 style: GoogleFonts.elMessiri(
                     fontSize: 30, fontWeight: FontWeight.w700),
               )),
@@ -44,15 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 isSelected = true;
                 setState(() {});
               },
-              backgroundColor: const Color(0xffB7935F),
-              type: BottomNavigationBarType.shifting,
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.white,
-              showUnselectedLabels: false,
+              // backgroundColor: const Color(0xffB7935F),
+              // type: BottomNavigationBarType.shifting,
+              // selectedItemColor: Colors.black,
+              // unselectedItemColor: Colors.white,
+              // showUnselectedLabels: false,
               showSelectedLabels: isSelected ? true : false,
               items: [
                 BottomNavigationBarItem(
-                    label: selectedIndex == 0 ? "Quran" : "",
+                    label: selectedIndex == 0 ? "quran".tr() : "",
                     backgroundColor: const Color(0xffB7935F),
                     icon: const ImageIcon(
                       AssetImage(
@@ -61,26 +62,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     )),
                 BottomNavigationBarItem(
                     backgroundColor: const Color(0xffB7935F),
-                    label: isSelected ? "Tasbeh" : "",
+                    label: isSelected ? "tasbeh".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/sebha.png",
                     ))),
                 BottomNavigationBarItem(
                     backgroundColor: const Color(0xffB7935F),
-                    label: isSelected ? "Radio" : "",
+                    label: isSelected ? "radio".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/radio.png",
                     ))),
                 BottomNavigationBarItem(
                     backgroundColor: const Color(0xffB7935F),
-                    label: isSelected ? "Ahadeth" : "",
+                    label: isSelected ? "hadiths".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/hadeth.png",
                     ))),
                 BottomNavigationBarItem(
                   backgroundColor: const Color(0xffB7935F),
                   icon: const Icon(Icons.settings),
-                  label: isSelected ? "Settings" : "",
+                  label: isSelected ? "settings".tr() : "",
                 ),
               ]),
           body: tabs[selectedIndex],

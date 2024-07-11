@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,65 +35,70 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Image.asset("assets/images/head_sebha_logo.png"),
-        Center(
-          heightFactor: 0.81,
-          child: GestureDetector(
-            onTap: () {
-              add();
-            },
-            child: Transform.rotate(
-              angle: counter * 3,
-              transformHitTests: true,
-              child: Image.asset(
-                "assets/images/body_sebha_logo.png",
-                height: 234,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Image.asset("assets/images/head_sebha_logo.png"),
+          Center(
+            heightFactor: 0.81,
+            child: GestureDetector(
+              onTap: () {
+                add();
+              },
+              child: Transform.rotate(
+                angle: counter * 3,
+                transformHitTests: true,
+                child: Image.asset(
+                  "assets/images/body_sebha_logo.png",
+                  height: 234,
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 50,
-        ),
-        Text(
-          "Number of tasbeh",
-          style:
-              GoogleFonts.elMessiri(fontSize: 25, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: 69,
-          height: 81,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Color(0xffB7935F).withOpacity(0.75)),
-          child: Text(
-            "$counter",
-            style: GoogleFonts.inter(fontSize: 25, fontWeight: FontWeight.w400),
+          const SizedBox(
+            height: 30,
           ),
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Container(
-          alignment: Alignment.center,
-          width: 137,
-          height: 51,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Color(0xffB7935F)),
-          child: Text(
-            tasbeh[index],
-            style: GoogleFonts.inter(
-                fontSize: 25, fontWeight: FontWeight.w400, color: Colors.white),
+          Text(
+            "number_of_praises".tr(),
+            style: GoogleFonts.elMessiri(
+                fontSize: 25, fontWeight: FontWeight.w600),
           ),
-        )
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: 69,
+            height: 81,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Color(0xffB7935F).withOpacity(0.75)),
+            child: Text(
+              "$counter",
+              style:
+                  GoogleFonts.inter(fontSize: 25, fontWeight: FontWeight.w400),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            alignment: Alignment.center,
+            width: 137,
+            height: 51,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Color(0xffB7935F)),
+            child: Text(
+              tasbeh[index],
+              style: GoogleFonts.inter(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

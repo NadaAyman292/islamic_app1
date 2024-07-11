@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_app/models/ahadeth_model.dart';
@@ -16,7 +17,7 @@ class AhadethTab extends StatelessWidget {
         color: Color(0xffB7935F),
       ),
       Text(
-        "AL Ahadeth",
+        "hadiths".tr(),
         textAlign: TextAlign.center,
         style: GoogleFonts.elMessiri(fontSize: 25, fontWeight: FontWeight.w600),
       ),
@@ -31,15 +32,30 @@ class AhadethTab extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, AhadethDetailsScreen.routeName,
-                      arguments: AhadethModel("Hadeth Number $index+1", index));
+                      arguments:
+                          AhadethModel("hadith_number  $index+1", index));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Text(
-                    "Hadeth Number ${index + 1}",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                        fontSize: 25, fontWeight: FontWeight.w400),
+                  child: Center(
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: " ${index + 1}",
+                            style: GoogleFonts.inter(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )
+                        ],
+                        text: "hadith_number".tr(),
+                        style: GoogleFonts.inter(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               );

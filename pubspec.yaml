@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.11
   google_fonts: ^5.1.0
+  easy_localization: ^3.0.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +67,8 @@ flutter:
     - assets/images/
     - assets/files/quran/
     - assets/files/ahadeth/
+    - assets/translation/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
