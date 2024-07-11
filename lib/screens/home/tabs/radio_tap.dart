@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +13,7 @@ class RadioTab extends StatelessWidget {
       children: [
         Image.asset("assets/images/radio_image.png"),
         Text(
-          "Quran Radio",
+          "quran_radio".tr(),
           textAlign: TextAlign.center,
           style: GoogleFonts.elMessiri(
             fontSize: 25,
