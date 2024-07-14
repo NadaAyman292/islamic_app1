@@ -14,14 +14,8 @@ class AhadethDetailsScreen extends StatefulWidget {
 
 class _AhadethDetailsScreenState extends State<AhadethDetailsScreen> {
   @override
-  List<String> ahadeth = [];
-
   Widget build(BuildContext context) {
     var model = ModalRoute.of(context)?.settings.arguments as AhadethModel;
-
-    if (ahadeth.isEmpty) {
-      loadSuraFiles(model.index);
-    }
 
     return Stack(
       children: [
@@ -33,17 +27,20 @@ class _AhadethDetailsScreenState extends State<AhadethDetailsScreen> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            centerTitle: true,
+            title: Text(model.title),
             backgroundColor: Colors.transparent,
           ),
           body: Card(
             elevation: 4,
-            color: Color(0xffF8F8F8).withOpacity(0.6),
+            color: Color.fromARGB(255, 196, 179, 155).withOpacity(0.6),
             margin: EdgeInsets.all(16),
             child: ListView.builder(
-                itemCount: ahadeth.length,
+                padding: EdgeInsets.all(8),
+                itemCount: model.content.length,
                 itemBuilder: (context, index) {
                   return Text(
-                    "${ahadeth[index]}",
+                    model.content[index],
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inder(
@@ -54,14 +51,5 @@ class _AhadethDetailsScreenState extends State<AhadethDetailsScreen> {
         )
       ],
     );
-  }
-
-  loadSuraFiles(int index) async {
-    String file =
-        await rootBundle.loadString("assets/files/ahadeth/h${index + 1}.txt");
-    List<String> ahadethLine = file.split("\n");
-
-    ahadeth = ahadethLine;
-    setState(() {});
   }
 }

@@ -1,5 +1,5 @@
 class AhadethModel {
-  String name;
-  int index;
-  AhadethModel(this.name, this.index);
+  String title;
+  List<String> content;
+  AhadethModel(this.title, this.content);
 }

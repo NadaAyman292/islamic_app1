@@ -10,8 +10,9 @@ class SebhaTab extends StatefulWidget {
 }
 
 class _SebhaTabState extends State<SebhaTab> {
-  int counter = 1;
+  int counter = 0;
   int index = 0;
+  double angle = 0;
 
   List<String> tasbeh = [
     "سبحان الله ",
@@ -20,19 +21,6 @@ class _SebhaTabState extends State<SebhaTab> {
     "الله اكبر ",
   ];
 
-  void add() {
-    counter++;
-    if (counter == 34) {
-      counter = 1;
-      index++;
-      if (index == 4) {
-        index = 0;
-      }
-    }
-
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,14 +28,15 @@ class _SebhaTabState extends State<SebhaTab> {
         children: [
           Image.asset("assets/images/head_sebha_logo.png"),
           Center(
-            heightFactor: 0.81,
-            child: GestureDetector(
-              onTap: () {
-                add();
-              },
-              child: Transform.rotate(
-                angle: counter * 3,
-                transformHitTests: true,
+            heightFactor: 0.7,
+            child: Transform.rotate(
+              angle: angle,
+              child: GestureDetector(
+                onTap: () {
+                  // setState(() {});
+                  // add();
+                  onTap();
+                },
                 child: Image.asset(
                   "assets/images/body_sebha_logo.png",
                   height: 234,
@@ -56,7 +45,7 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 35,
           ),
           Text(
             "number_of_praises".tr(),
@@ -100,5 +89,19 @@ class _SebhaTabState extends State<SebhaTab> {
         ],
       ),
     );
+  }
+
+  onTap() {
+    counter++;
+    if (counter % 33 == 0) {
+      index++;
+      counter++;
+      counter = 0;
+    }
+    if (index == tasbeh.length) {
+      index = 0;
+    }
+    angle += 360 / 4;
+    setState(() {});
   }
 }
