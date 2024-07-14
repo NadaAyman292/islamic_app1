@@ -38,13 +38,14 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
               )),
           body: Card(
             elevation: 4,
-            color: Color(0xffF8F8F8).withOpacity(0.6),
+            color: Color.fromARGB(255, 196, 179, 155).withOpacity(0.6),
             margin: EdgeInsets.all(16),
             child: ListView.builder(
+                padding: EdgeInsets.all(8),
                 itemCount: verses.length,
                 itemBuilder: (context, index) {
                   return Text(
-                    "$verses[index]",
+                    verses[index],
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.inder(

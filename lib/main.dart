@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_app/helper/cache_helper.dart';
 import 'package:islamic_app/screens/home/home_screen.dart';
+import 'package:islamic_app/theme/theme_data_light.dart';
 import 'screens/ahadeth_details.dart';
 import 'screens/sura_details_screen.dart';
+import 'theme/theme_data_dark.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      theme: getThemeDataLight(),
       debugShowCheckedModeBanner: false,
       initialRoute: HomeScreen.routeName,
       routes: {

@@ -66,7 +66,7 @@ flutter:
   assets:
     - assets/images/
     - assets/files/quran/
-    - assets/files/ahadeth/
+    - assets/files/ahadeth.txt
     - assets/translation/
 
 
