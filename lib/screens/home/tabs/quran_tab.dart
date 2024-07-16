@@ -2,6 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_app/models/sura_model.dart';
+import 'package:islamic_app/providers/theme_provider.dart';
+import 'package:islamic_app/utils/theme/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../../sura_details_screen.dart';
 
@@ -126,6 +129,7 @@ class QuranTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -135,17 +139,14 @@ class QuranTab extends StatelessWidget {
         ),
         const Divider(
           thickness: 3,
-          color: Color(0xffB7935F),
         ),
         Text(
           "sura_names".tr(),
           textAlign: TextAlign.center,
-          style:
-              GoogleFonts.elMessiri(fontSize: 25, fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         const Divider(
           thickness: 3,
-          color: Color(0xffB7935F),
         ),
         Expanded(
           child: ListView.separated(
@@ -156,18 +157,17 @@ class QuranTab extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.star,
-                        color: Color(0xffB7935F),
+                        color: MyColors.primaryColor,
                       ),
                       Expanded(
                         child: Divider(
-                          color: Color(0xffB7935F),
                           indent: 60,
                           endIndent: 60,
                         ),
                       ),
                       Icon(
                         Icons.star,
-                        color: Color(0xffB7935F),
+                        color: MyColors.primaryColor,
                       ),
                     ],
                   ),
@@ -183,8 +183,12 @@ class QuranTab extends StatelessWidget {
                   child: Text(
                     suraNames[index],
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                        fontSize: 25, fontWeight: FontWeight.w400),
+                    style: provider.mode == ThemeMode.light
+                        ? Theme.of(context).textTheme.bodyMedium
+                        : Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: MyColors.whiteColor),
                   ),
                 );
               }),

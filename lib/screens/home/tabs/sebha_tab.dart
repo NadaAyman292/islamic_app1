@@ -1,6 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:islamic_app/utils/theme/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/theme_provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -23,10 +27,13 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
-          Image.asset("assets/images/head_sebha_logo.png"),
+          Image.asset(provider.mode == ThemeMode.light
+              ? "assets/images/head_sebha_logo.png"
+              : "assets/images/head_sebha_dark.png"),
           Center(
             heightFactor: 0.7,
             child: Transform.rotate(
@@ -38,7 +45,9 @@ class _SebhaTabState extends State<SebhaTab> {
                   onTap();
                 },
                 child: Image.asset(
-                  "assets/images/body_sebha_logo.png",
+                  provider.mode == ThemeMode.light
+                      ? "assets/images/body_sebha_logo.png"
+                      : "assets/images/body_sebha_dark.png",
                   height: 234,
                 ),
               ),
@@ -49,8 +58,7 @@ class _SebhaTabState extends State<SebhaTab> {
           ),
           Text(
             "number_of_praises".tr(),
-            style: GoogleFonts.elMessiri(
-                fontSize: 25, fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           const SizedBox(
             height: 10,
@@ -61,11 +69,17 @@ class _SebhaTabState extends State<SebhaTab> {
             height: 81,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                color: Color(0xffB7935F).withOpacity(0.75)),
+                color: provider.mode == ThemeMode.light
+                    ? MyColors.primaryColor.withOpacity(0.5)
+                    : MyColors.primaryDarkColor.withOpacity(0.5)),
             child: Text(
               "$counter",
-              style:
-                  GoogleFonts.inter(fontSize: 25, fontWeight: FontWeight.w400),
+              style: provider.mode == ThemeMode.light
+                  ? Theme.of(context).textTheme.bodyMedium
+                  : Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.white),
             ),
           ),
           const SizedBox(
@@ -76,14 +90,17 @@ class _SebhaTabState extends State<SebhaTab> {
             width: 137,
             height: 51,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: Color(0xffB7935F)),
+              borderRadius: BorderRadius.circular(25),
+              color: provider.mode == ThemeMode.light
+                  ? MyColors.primaryColor
+                  : MyColors.yellowColor,
+            ),
             child: Text(
               tasbeh[index],
-              style: GoogleFonts.inter(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: Colors.white),
             ),
           )
         ],
