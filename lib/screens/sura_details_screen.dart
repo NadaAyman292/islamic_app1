@@ -1,68 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:islamic_app/models/sura_model.dart';
+import 'package:islamic_app/providers/sura_details_provider.dart';
+import 'package:islamic_app/providers/theme_provider.dart';
+import 'package:islamic_app/utils/theme/colors.dart';
+import 'package:provider/provider.dart';
 
-class SuraDetailsScreen extends StatefulWidget {
+class SuraDetailsScreen extends StatelessWidget {
   static const String routeName = "suraDetails";
-  const SuraDetailsScreen({super.key});
+  SuraDetailsScreen({super.key});
 
   @override
-  State<SuraDetailsScreen> createState() => _SuraDetailsScreenState();
-}
-
-class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
-  @override
-  List<String> verses = [];
   Widget build(BuildContext context) {
     var model = ModalRoute.of(context)?.settings.arguments as SuraModel;
-    if (verses.isEmpty) {
-      loadSuraFiles(model.index);
-    }
-    return Stack(
-      children: [
-        Image.asset(
-          "assets/images/main_bg.png",
-          width: double.infinity,
-          fit: BoxFit.fill,
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-              title: Text(
-                model.name,
-                style: GoogleFonts.elMessiri(
-                    fontSize: 30, fontWeight: FontWeight.w700),
-              )),
-          body: Card(
-            elevation: 4,
-            color: Color.fromARGB(255, 196, 179, 155).withOpacity(0.6),
-            margin: EdgeInsets.all(16),
-            child: ListView.builder(
-                padding: EdgeInsets.all(8),
-                itemCount: verses.length,
-                itemBuilder: (context, index) {
-                  return Text(
-                    verses[index],
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inder(
-                        fontWeight: FontWeight.w400, fontSize: 20),
-                  );
-                }),
-          ),
-        ),
-      ],
-    );
-  }
+    // if (provider.verses.isEmpty) {
+    //   provider.loadSuraFiles(model.index);
+    // }
+    return ChangeNotifierProvider(
+        create: (context) => SuraDetailsProvider()..loadSuraFiles(model.index),
+        builder: (context, child) {
+          var provider = Provider.of<SuraDetailsProvider>(context);
 
-  loadSuraFiles(int index) async {
-    String file =
-        await rootBundle.loadString("assets/files/quran/${index + 1}.txt");
-    List<String> suraLines = file.split("\n");
-    verses = suraLines;
-    setState(() {});
+          return Stack(
+            children: [
+              Image.asset(
+                Provider.of<ThemeProvider>(context).mode == ThemeMode.light
+                    ? "assets/images/main_bg.png"
+                    : "assets/images/main_dark_bg.png",
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              Scaffold(
+                appBar: AppBar(
+                    leading: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Provider.of<ThemeProvider>(context).mode ==
+                                ThemeMode.light
+                            ? MyColors.blackColor
+                            : MyColors.whiteColor,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    title: Text(
+                      model.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontSize: 30),
+                    )),
+                body: Card(
+                  elevation: 4,
+                  color: Provider.of<ThemeProvider>(context).mode ==
+                          ThemeMode.light
+                      ? Color.fromARGB(255, 196, 179, 155).withOpacity(0.6)
+                      : MyColors.primaryDarkColor.withOpacity(0.6),
+                  margin: EdgeInsets.all(16),
+                  child: ListView.builder(
+                      padding: EdgeInsets.all(8),
+                      itemCount: provider.verses.length,
+                      itemBuilder: (context, index) {
+                        return Text(
+                          provider.verses[index],
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        );
+                      }),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

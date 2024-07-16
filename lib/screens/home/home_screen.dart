@@ -1,15 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:islamic_app/providers/theme_provider.dart';
 import 'package:islamic_app/screens/home/tabs/ahadeth_tab.dart';
 import 'package:islamic_app/screens/home/tabs/quran_tab.dart';
 import 'package:islamic_app/screens/home/tabs/radio_tap.dart';
 import 'package:islamic_app/screens/home/tabs/sebha_tab.dart';
 import 'package:islamic_app/screens/home/tabs/setting_tab.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "homeScreen";
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -21,23 +22,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return Stack(
       children: [
         Image.asset(
-          "assets/images/main_bg.png",
+          provider.mode == ThemeMode.light
+              ? "assets/images/main_bg.png"
+              : "assets/images/main_dark_bg.png",
           width: double.infinity,
           fit: BoxFit.fill,
         ),
         Scaffold(
-          backgroundColor: Colors.transparent,
           appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
               title: Text(
-                "islami".tr(),
-                style: GoogleFonts.elMessiri(
-                    fontSize: 30, fontWeight: FontWeight.w700),
-              )),
+            "islami".tr(),
+          )),
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: selectedIndex,
               onTap: (value) {
@@ -45,11 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 isSelected = true;
                 setState(() {});
               },
-              // backgroundColor: const Color(0xffB7935F),
-              // type: BottomNavigationBarType.shifting,
-              // selectedItemColor: Colors.black,
-              // unselectedItemColor: Colors.white,
-              // showUnselectedLabels: false,
               showSelectedLabels: isSelected ? true : false,
               items: [
                 BottomNavigationBarItem(
@@ -61,25 +55,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     )),
                 BottomNavigationBarItem(
-                    backgroundColor: const Color(0xffB7935F),
                     label: isSelected ? "tasbeh".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/sebha.png",
                     ))),
                 BottomNavigationBarItem(
-                    backgroundColor: const Color(0xffB7935F),
                     label: isSelected ? "radio".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/radio.png",
                     ))),
                 BottomNavigationBarItem(
-                    backgroundColor: const Color(0xffB7935F),
                     label: isSelected ? "hadiths".tr() : "",
                     icon: const ImageIcon(AssetImage(
                       "assets/images/hadeth.png",
                     ))),
                 BottomNavigationBarItem(
-                  backgroundColor: const Color(0xffB7935F),
                   icon: const Icon(Icons.settings),
                   label: isSelected ? "settings".tr() : "",
                 ),

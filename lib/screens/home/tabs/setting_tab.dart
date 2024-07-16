@@ -1,155 +1,119 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:islamic_app/widgets/custom_text_setting.dart';
+import 'package:islamic_app/providers/theme_provider.dart';
+import 'package:islamic_app/utils/theme/colors.dart';
+import 'package:islamic_app/widgets/bottom_sheets/language_bottom_sheet.dart';
+import 'package:provider/provider.dart';
 
-import '../../../helper/cache_helper.dart';
-import '../../../widgets/modal_bottom_sheet_item.dart';
-import '../../../widgets/setting_item.dart';
+import '../../../widgets/bottom_sheets/theme_bottom_sheet.dart';
 
-class SettingsTab extends StatefulWidget {
+class SettingsTab extends StatelessWidget {
   const SettingsTab({super.key});
 
   @override
-  State<SettingsTab> createState() => _SettingsTabState();
-}
-
-class _SettingsTabState extends State<SettingsTab> {
-  String selectedLanguage = "english".tr();
-  String themeSelected = "light_theme".tr();
-  bool isLight = true;
-  @override
-  void initState() {
-    super.initState();
-    CacheData.cachIntialization();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomTextSetting(
-          text: "language".tr(),
-        ),
-        InkWell(
+    var provider = Provider.of<ThemeProvider>(context);
+
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "theme".tr(),
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          InkWell(
             onTap: () {
               showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return Container(
-                      padding: const EdgeInsets.all(18),
-                      height: 300,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          color: Color(0xffB7935F),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24))),
-                      child: Column(
-                        children: [
-                          ModalBottomSheetItem(
-                              icon: selectedLanguage == "arabic".tr()
-                                  ? Icons.check
-                                  : null,
-                              borderColor: selectedLanguage == "arabic".tr()
-                                  ? Colors.brown
-                                  : Color.fromARGB(255, 192, 168, 133),
-                              onTap: () {
-                                setState(() {
-                                  selectedLanguage = "arabic".tr();
-                                  context.setLocale(const Locale('ar'));
-                                });
-                                Navigator.pop(context);
-                              },
-                              text: "arabic".tr()),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ModalBottomSheetItem(
-                            icon: selectedLanguage == "english".tr()
-                                ? Icons.check
-                                : null,
-                            borderColor: selectedLanguage == "english".tr()
-                                ? Colors.brown
-                                : Color.fromARGB(255, 192, 168, 133),
-                            onTap: () {
-                              setState(() {
-                                selectedLanguage = "english".tr();
-                                context.setLocale(Locale('en'));
-                              });
-                              Navigator.pop(context);
-                            },
-                            text: "english".tr(),
-                          ),
-                        ],
-                      ),
-                    );
+                    return const ThemeBottomSheet();
                   });
             },
-            child: SettingItem(
-              text: selectedLanguage,
-            )),
-        CustomTextSetting(
-          text: "theme".tr(),
-        ),
-        InkWell(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(
+                  color: MyColors.primaryColor,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    provider.mode == ThemeMode.light ? "Light" : "Dark",
+                    style: provider.mode == ThemeMode.light
+                        ? Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontSize: 20)
+                        : Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: 20, color: MyColors.whiteColor),
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down,
+                    color: MyColors.primaryColor,
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 44,
+          ),
+          Text(
+            "language".tr(),
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          InkWell(
             onTap: () {
               showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return Container(
-                      padding: const EdgeInsets.all(18),
-                      height: 300,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          color: Color(0xffB7935F),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(24),
-                              topRight: Radius.circular(24))),
-                      child: Column(
-                        children: [
-                          ModalBottomSheetItem(
-                            text: "dark_theme".tr(),
-                            icon: themeSelected == "dark_theme".tr()
-                                ? Icons.check
-                                : null,
-                            borderColor: themeSelected == "dark_theme"
-                                ? Colors.brown
-                                : Color.fromARGB(255, 192, 168, 133),
-                            onTap: () {
-                              setState(() {
-                                themeSelected = "dark_theme".tr();
-                              });
-                              Navigator.pop(context);
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ModalBottomSheetItem(
-                            icon: themeSelected == "light_theme"
-                                ? Icons.check
-                                : null,
-                            borderColor: themeSelected == "light_theme"
-                                ? Colors.brown
-                                : Color.fromARGB(255, 192, 168, 133),
-                            onTap: () {
-                              setState(() {
-                                themeSelected = "light_theme";
-                              });
-                              Navigator.pop(context);
-                            },
-                            text: "light_theme".tr(),
-                          ),
-                        ],
-                      ),
-                    );
+                    return LanguageBottomShett();
                   });
             },
-            child: SettingItem(
-              text: themeSelected,
-            )),
-      ],
+            child: Container(
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(
+                  color: MyColors.primaryColor,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "English",
+                    style: provider.mode == ThemeMode.light
+                        ? Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontSize: 20)
+                        : Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: 20, color: MyColors.whiteColor),
+                  ),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: MyColors.primaryColor,
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
