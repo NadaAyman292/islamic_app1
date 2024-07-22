@@ -15,7 +15,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (context) => ThemeProvider()..getTheme()),
+            create: (context) => ThemeProvider()..loadTheme()),
       ],
       child: EasyLocalization(
           supportedLocales: const [Locale('en'), Locale('ar')],
