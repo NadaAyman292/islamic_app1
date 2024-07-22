@@ -27,13 +27,14 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ThemeProvider>(context);
+    // var provider = Provider.of<ThemeProvider>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
-          Image.asset(provider.mode == ThemeMode.light
-              ? "assets/images/head_sebha_logo.png"
-              : "assets/images/head_sebha_dark.png"),
+          Image.asset(
+              Provider.of<ThemeProvider>(context).mode == ThemeMode.light
+                  ? "assets/images/head_sebha_logo.png"
+                  : "assets/images/head_sebha_dark.png"),
           Center(
             heightFactor: 0.7,
             child: Transform.rotate(
@@ -45,7 +46,7 @@ class _SebhaTabState extends State<SebhaTab> {
                   onTap();
                 },
                 child: Image.asset(
-                  provider.mode == ThemeMode.light
+                  Provider.of<ThemeProvider>(context).mode == ThemeMode.light
                       ? "assets/images/body_sebha_logo.png"
                       : "assets/images/body_sebha_dark.png",
                   height: 234,
@@ -69,12 +70,13 @@ class _SebhaTabState extends State<SebhaTab> {
             height: 81,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                color: provider.mode == ThemeMode.light
-                    ? MyColors.primaryColor.withOpacity(0.5)
-                    : MyColors.primaryDarkColor.withOpacity(0.5)),
+                color:
+                    Provider.of<ThemeProvider>(context).mode == ThemeMode.light
+                        ? MyColors.primaryColor.withOpacity(0.5)
+                        : MyColors.primaryDarkColor.withOpacity(0.5)),
             child: Text(
               "$counter",
-              style: provider.mode == ThemeMode.light
+              style: Provider.of<ThemeProvider>(context).mode == ThemeMode.light
                   ? Theme.of(context).textTheme.bodyMedium
                   : Theme.of(context)
                       .textTheme
@@ -91,7 +93,7 @@ class _SebhaTabState extends State<SebhaTab> {
             height: 51,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: provider.mode == ThemeMode.light
+              color: Provider.of<ThemeProvider>(context).mode == ThemeMode.light
                   ? MyColors.primaryColor
                   : MyColors.yellowColor,
             ),
