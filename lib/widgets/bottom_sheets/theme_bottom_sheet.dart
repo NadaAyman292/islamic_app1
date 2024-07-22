@@ -16,7 +16,6 @@ class ThemeBottomSheet extends StatelessWidget {
           InkWell(
             onTap: () {
               provider.changeTheme(ThemeMode.light);
-              Navigator.pop(context);
             },
             child: Container(
               padding: const EdgeInsets.all(10),
@@ -51,7 +50,6 @@ class ThemeBottomSheet extends StatelessWidget {
           InkWell(
             onTap: () {
               provider.changeTheme(ThemeMode.dark);
-              Navigator.pop(context);
             },
             child: Container(
               padding: const EdgeInsets.all(10),
