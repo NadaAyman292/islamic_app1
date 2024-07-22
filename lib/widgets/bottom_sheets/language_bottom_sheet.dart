@@ -5,14 +5,9 @@ import 'package:provider/provider.dart';
 
 import '../../providers/theme_provider.dart';
 
-class LanguageBottomShett extends StatefulWidget {
+class LanguageBottomShett extends StatelessWidget {
   const LanguageBottomShett({super.key});
 
-  @override
-  State<LanguageBottomShett> createState() => _LanguageBottomShettState();
-}
-
-class _LanguageBottomShettState extends State<LanguageBottomShett> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
@@ -23,9 +18,8 @@ class _LanguageBottomShettState extends State<LanguageBottomShett> {
         children: [
           InkWell(
             onTap: () {
-              //langProvider.changeLanguage(Locale("ar"));
               context.setLocale(Locale("ar"));
-              setState(() {});
+              Navigator.pop(context);
             },
             child: Container(
               padding: const EdgeInsets.all(10),
@@ -36,17 +30,29 @@ class _LanguageBottomShettState extends State<LanguageBottomShett> {
                       ? Border.all(
                           width: 2,
                           color: provider.mode == ThemeMode.light
-                              ? MyColors.blackColor
-                              : MyColors.yellowColor)
-                      : Border.all(color: Colors.transparent)),
+                              ? context.locale == Locale("ar")
+                                  ? MyColors.blackColor
+                                  : MyColors.primaryColor
+                              : context.locale == Locale("ar")
+                                  ? MyColors.yellowColor
+                                  : MyColors.primaryDarkColor)
+                      : Border.all(
+                          color: context.locale == Locale("ar")
+                              ? MyColors.yellowColor
+                              : Colors.transparent)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Arabic", style: Theme.of(context).textTheme.bodyMedium),
+                  Text("arabic".tr(),
+                      style: Theme.of(context).textTheme.bodyMedium),
                   Icon(Icons.done,
                       color: provider.mode == ThemeMode.light
-                          ? MyColors.blackColor
-                          : Colors.transparent),
+                          ? context.locale == Locale("ar")
+                              ? MyColors.blackColor
+                              : MyColors.primaryColor
+                          : context.locale == Locale("ar")
+                              ? MyColors.yellowColor
+                              : MyColors.primaryDarkColor),
                 ],
               ),
             ),
@@ -56,9 +62,8 @@ class _LanguageBottomShettState extends State<LanguageBottomShett> {
           ),
           InkWell(
             onTap: () {
-              // langProvider.changeLanguage(Locale("en"));
               context.setLocale(Locale("en"));
-              setState(() {});
+              Navigator.pop(context);
             },
             child: Container(
               padding: const EdgeInsets.all(10),
@@ -69,18 +74,29 @@ class _LanguageBottomShettState extends State<LanguageBottomShett> {
                     ? Border.all(
                         width: 2,
                         color: provider.mode == ThemeMode.light
-                            ? MyColors.blackColor
-                            : MyColors.yellowColor)
-                    : Border.all(color: Colors.transparent),
+                            ? context.locale == Locale("en")
+                                ? MyColors.blackColor
+                                : MyColors.primaryColor
+                            : context.locale == Locale("en")
+                                ? MyColors.yellowColor
+                                : MyColors.primaryDarkColor)
+                    : Border.all(
+                        color: context.locale == Locale("en")
+                            ? MyColors.yellowColor
+                            : Colors.transparent),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("English"),
+                  Text("english".tr()),
                   Icon(Icons.done,
                       color: provider.mode == ThemeMode.light
-                          ? MyColors.blackColor
-                          : Colors.transparent)
+                          ? context.locale == Locale("en")
+                              ? MyColors.blackColor
+                              : MyColors.primaryColor
+                          : context.locale == Locale("en")
+                              ? MyColors.yellowColor
+                              : MyColors.primaryDarkColor)
                 ],
               ),
             ),

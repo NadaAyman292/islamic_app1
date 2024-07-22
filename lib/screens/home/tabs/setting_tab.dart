@@ -47,7 +47,9 @@ class SettingsTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    provider.mode == ThemeMode.light ? "Light" : "Dark",
+                    provider.mode == ThemeMode.light
+                        ? "light_theme".tr()
+                        : "dark_theme".tr(),
                     style: provider.mode == ThemeMode.light
                         ? Theme.of(context)
                             .textTheme
@@ -95,7 +97,9 @@ class SettingsTab extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "English",
+                    context.locale == Locale("ar")
+                        ? "arabic".tr()
+                        : "english".tr(),
                     style: provider.mode == ThemeMode.light
                         ? Theme.of(context)
                             .textTheme
