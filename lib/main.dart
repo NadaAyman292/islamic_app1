@@ -12,19 +12,18 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
 
   runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
-      path:
-          'assets/translation', // <-- change the path of the translation files
-      fallbackLocale: Locale('en'),
-      saveLocale: true,
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (context) => ThemeProvider()..loadTheme()),
-        ],
-        child: const MyApp(),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => ThemeProvider()..getTheme()),
+      ],
+      child: EasyLocalization(
+          supportedLocales: const [Locale('en'), Locale('ar')],
+          path:
+              'assets/translation', // <-- change the path of the translation files
+          //fallbackLocale: const Locale('en'),
+          saveLocale: true,
+          child: const MyApp()),
     ),
   );
 }
